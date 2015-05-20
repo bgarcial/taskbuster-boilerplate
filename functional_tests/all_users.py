@@ -1,9 +1,3 @@
-# -*- coding: utf-8 -*-
-
-#Import python libraries for testing
-from selenium import webdriver
-import unittest
-
 #TestCase class
 class NewVisitorTest(unittest.TestCase):
 

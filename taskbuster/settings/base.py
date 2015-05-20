@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Django settings for taskbuster project.
 
@@ -11,7 +12,8 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-
+#Apunta al directorio que contiene el archivo actual
+#Por ejemplo el directorio taskbuster
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
@@ -29,9 +31,9 @@ def get_env_variable(var_name):
 SECRET_KEY = get_env_variable('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#DEBUG = True
 
-TEMPLATE_DEBUG = True
+#TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -85,8 +87,56 @@ USE_L10N = True
 
 USE_TZ = True
 
+"""
+Por defecto Django busca los templates enun directorio 
+llamado templates dentro de cada app y dentro de 
+taskbuster/templates al igual que con los archivos estaticos
+"""
+#Template files
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS':[os.path.join(BASE_DIR, "templates")],
+        'APP_DIRS': True,
+        'OPTIONS' : {
+            'context_processors':[
+                'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.debug',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
-
+#Le dice a Django que busque archivos estaticos en un directorio
+#llamado static dentro de cada una de nuestras apps
 STATIC_URL = '/static/'
+"""
+However, some static files are used for the whole project 
+and shouldn’t be inside a specific app. 
+Go inside the taskbuster folder, at the same level of the 
+settings files, and create a directory named static.
+This directory will contain all the static files that are global 
+for the project, like CSS or javascript files
+"""
+
+"""
+Le dice a Django que busque los archivos estaticos en la 
+ruta taskbuster/static que hemos creado.
+"""
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)
+"""
+Con esta configuracion, Django buscara los arhcivos
+estaticos en un directorio llamado static dentro de 
+cada app y dentro del directorio taskbuster/static 
+que hemos creado antes
+"""
