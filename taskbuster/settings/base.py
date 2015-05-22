@@ -156,3 +156,5 @@ estaticos en un directorio llamado static dentro de
 cada app y dentro del directorio taskbuster/static 
 que hemos creado antes
 """
+
+STATIC_ROOT=os.sep.join(os.path.abspath(__file__).split(os.sep)[:-2]+['static'])
