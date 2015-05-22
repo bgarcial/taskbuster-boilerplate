@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
+import datetime
 from django.shortcuts import render
-from django.views.generic.base import TemplateView
-
+from django.utils.timezone import now
 
 def home(request):
-    return render(request, "taskbuster/index.html", {})
+    today = datetime.date.today()
+    return render(request, "taskbuster/index.html", 
+        {'today': today, 'now': now})
 
 """
 El shortcut render me permite cargar un template, 
@@ -19,5 +21,6 @@ the template context processors that you have included
 in your settings file.
 """    
 
-#class HomeView(TemplateView):
-#    template_name = 'index.html'
+def home_files(request, filename):
+    return render(request, filename, {}, content_type="text/plain")
+
